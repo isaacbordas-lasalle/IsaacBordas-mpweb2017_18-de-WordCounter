@@ -2,7 +2,7 @@
 
 namespace WordCounter\Filters;
 
-class SimpleCounter extends \WordCounter\WordCounter implements FilterInterface
+class VowelStartingWords extends \WordCounter\WordCounter implements FilterInterface
 {
 
     public function countWords() : int

@@ -7,7 +7,14 @@ class VowelStartingWords extends \WordCounter\WordCounter implements FilterInter
 
     public function countWords() : int
     {
-      return count(explode(' ', $this->getSentence()));
+      $sentence = explode(' ', $this->getSentence());
+      $i = 0;
+      foreach ($sentence as $sentenc){
+        $matches[$i] = (preg_match_all('#[aeiouáéíóúàèìòù\s]+#i', $sentenc[0]) ? preg_match_all('#[aeiouáéíóúàèìòù\s]+#i', $sentenc[0]) : null);
+        if ($matches[$i] === null) unset($matches[$i]);
+        $i++;
+      }
+      return count($matches);
     }
 
 }

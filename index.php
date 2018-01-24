@@ -11,3 +11,6 @@ $sentence = 'Esto es un texto molón que sirve como juego de pruebas para la kat
 
 $simplecounter = new Filters\SimpleCounter($sentence);
 print 'Número total de palabras sin filtros: ' . $simplecounter->countWords();
+
+$vowelstartingcounter = new Filters\VowelStartingWords($sentence);
+print 'Número total de palabras que empiezan por vocal: ' . $vowelstartingcounter->countWords();

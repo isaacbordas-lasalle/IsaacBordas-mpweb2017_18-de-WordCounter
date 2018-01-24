@@ -11,9 +11,4 @@ class WordCounter
         $this->sentence = $sentence;
     }
 
-    public function simpleCounter()
-    {
-      return count(explode(' ', $this->sentence));
-    }
-
 }

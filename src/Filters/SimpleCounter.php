@@ -2,18 +2,12 @@
 
 namespace WordCounter\Filters;
 
-class SimpleCounter
+class SimpleCounter extends \WordCounter\WordCounter
 {
-    private $sentence;
-
-    public function __construct (String $sentence)
-    {
-        $this->sentence = $sentence;
-    }
 
     public function countWords() : int
     {
-      return count(explode(' ', $this->sentence));
+      return count(explode(' ', $this->getSentence()));
     }
 
 }

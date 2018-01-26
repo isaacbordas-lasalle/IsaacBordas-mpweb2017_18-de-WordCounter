@@ -19,7 +19,7 @@ class VowelStartingWords extends \WordCounter\WordCounter implements FilterInter
 
     private function FirstVowelMatch(String $firstchar) : int
     {
-      return preg_match_all('#[aeiouáéíóúàèìòù\s]+#i', $firstchar);
+      return preg_match_all('#[AEIOUÁÉÍÓÚÀÈÌÒÙaeiouáéíóúàèìòù\s]+#i', $firstchar);
     }
 
 }

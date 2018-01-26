@@ -1,5 +1,7 @@
 {
     "autoload": {
-        "psr-4": {"WordCounter\\": "src/"}
+        "psr-4": {
+          "WordCounter\\": "src/WordCounter"
+        }
     }
 }

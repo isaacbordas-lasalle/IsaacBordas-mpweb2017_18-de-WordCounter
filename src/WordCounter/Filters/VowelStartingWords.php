@@ -2,24 +2,40 @@
 
 namespace WordCounter\Filters;
 
-class VowelStartingWords extends \WordCounter\WordCounter implements FilterInterface
+use \WordCounter\WordCounter;
+use \WordCounter\WordExtractor;
+
+class VowelStartingWords extends WordCounter implements FilterInterface
 {
 
-    public function countWords() : int
+    private $sentence;
+
+    public function __construct(WordCounter $sentence)
     {
-      $sentence = explode(' ', $this->getSentence());
-      $matchcount = 0;
-      foreach ($sentence as $sentenc){
-        if(!empty($this->FirstVowelMatch($sentenc[0]))){
-          $matchcount ++;
-        }
-      }
-      return $matchcount;
+        $this->sentence = $sentence->getSentence();
     }
 
-    private function FirstVowelMatch(String $firstchar) : int
+    public function extractWordsFromSentence(): array
     {
-      return preg_match_all('#[AEIOUÁÉÍÓÚÀÈÌÒÙaeiouáéíóúàèìòù\s]+#i', $firstchar);
+        $splitedsentence = new WordExtractor\WordExtractor();
+        return $splitedsentence->extractWords($this->sentence);
+    }
+
+    public function countWords(): int
+    {
+        $splitedsentence = $this->extractWordsFromSentence();
+        $matchcount = 0;
+        foreach ($splitedsentence as $sentenc) {
+            if (!empty($this->firstVowelMatch($sentenc[0]))) {
+                $matchcount++;
+            }
+        }
+        return $matchcount;
+    }
+
+    private function firstVowelMatch(string $firstchar): int
+    {
+        return preg_match_all('#[AEIOUÁÉÍÓÚÀÈÌÒÙaeiouáéíóúàèìòù\s]+#i', $firstchar);
     }
 
 }

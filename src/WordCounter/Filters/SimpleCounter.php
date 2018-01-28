@@ -2,12 +2,28 @@
 
 namespace WordCounter\Filters;
 
-class SimpleCounter extends \WordCounter\WordCounter implements FilterInterface
+use \WordCounter\WordCounter;
+use \WordCounter\WordExtractor;
+
+class SimpleCounter extends WordCounter implements FilterInterface
 {
 
-    public function countWords() : int
+    private $sentence;
+
+    public function __construct(WordCounter $sentence)
     {
-      return count(explode(' ', $this->getSentence()));
+        $this->sentence = $sentence->getSentence();
+    }
+
+    public function extractWordsFromSentence(): array
+    {
+        $splitedsentence = new WordExtractor\WordExtractor();
+        return $splitedsentence->extractWords($this->sentence);
+    }
+
+    public function countWords(): int
+    {
+        return count($this->extractWordsFromSentence());
     }
 
 }

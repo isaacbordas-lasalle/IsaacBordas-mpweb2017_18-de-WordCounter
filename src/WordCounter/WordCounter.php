@@ -6,14 +6,14 @@ class WordCounter
 {
     private $sentence;
 
-    public function __construct (String $sentence)
+    public function __construct(string $sentence)
     {
         $this->sentence = $sentence;
     }
 
-    public function getSentence ()
+    public function getSentence()
     {
-      return $this->sentence;
+        return $this->sentence;
     }
 
 }

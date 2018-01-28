@@ -20,3 +20,5 @@ print 'Número total de palabras que empiezan por vocal: ' . $vowelstartingcount
 $morewicharscounter = new Filters\MoreTwoCharsWords(new \WordCounter\WordCounter($sentence));
 print 'Número total de palabras que tienen más de dos caracteres: ' . $morewicharscounter->countWords() . '<br />';
 
+$searchbykeywords = new Filters\SearchKeywords(new \WordCounter\WordCounter($sentence));
+print 'Número total de coincidencias: ' . $searchbykeywords->countWords() . '<br />';

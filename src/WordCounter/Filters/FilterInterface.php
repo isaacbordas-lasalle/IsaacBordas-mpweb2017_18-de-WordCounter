@@ -5,6 +5,8 @@ namespace WordCounter\Filters;
 interface FilterInterface
 {
 
-    public function countWords() : int;
+    public function prepareWords(): array;
+
+    public function countWords(): int;
 
 }

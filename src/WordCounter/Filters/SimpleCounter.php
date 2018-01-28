@@ -16,15 +16,24 @@ class SimpleCounter extends WordCounter implements FilterInterface
         $this->sentence = $sentence->getSentence();
     }
 
-    public function countWords(): int
+    public function prepareWords(): array
     {
+
         $splitedsentence = new WordExtractor\WordExtractor();
         $splitedwords = $splitedsentence->extractWords($this->sentence);
 
-        $sanitizewords = new WordSanitize\WordSanitize($splitedwords);
+        $sanitizewords = new WordSanitize\WordSanitize();
         $sanitizedwords = $sanitizewords->sanitizeWords($splitedwords);
 
-        return count($sanitizedwords);
+        return $sanitizedwords;
+
+    }
+
+    public function countWords(): int
+    {
+        $preparedwords = $this->prepareWords();
+
+        return count($preparedwords);
     }
 
 }

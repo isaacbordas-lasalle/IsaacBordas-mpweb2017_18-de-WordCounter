@@ -14,13 +14,13 @@ class WordSanitize
         return $stripedwhitespaces;
     }
 
-    public function removeLineBreaks(string $word) : string
+    public function removeLineBreaks(string $word): string
     {
-        $word = preg_replace( '/[\r\n\t ]+/', ' ', $word );
+        $word = preg_replace('/[\r\n\t ]+/', ' ', $word);
         return $word;
     }
 
-    public function removeWhiteSpaces(string $word) : string
+    public function removeWhiteSpaces(string $word): string
     {
         $word = trim($word, ".,");
         return $word;

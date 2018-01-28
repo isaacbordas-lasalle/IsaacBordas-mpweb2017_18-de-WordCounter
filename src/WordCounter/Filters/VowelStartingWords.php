@@ -16,16 +16,25 @@ class VowelStartingWords extends WordCounter implements FilterInterface
         $this->sentence = $sentence->getSentence();
     }
 
-    public function countWords(): int
+    public function prepareWords(): array
     {
+
         $splitedsentence = new WordExtractor\WordExtractor();
         $splitedwords = $splitedsentence->extractWords($this->sentence);
 
-        $sanitizewords = new WordSanitize\WordSanitize($splitedwords);
+        $sanitizewords = new WordSanitize\WordSanitize();
         $sanitizedwords = $sanitizewords->sanitizeWords($splitedwords);
 
+        return $sanitizedwords;
+
+    }
+
+    public function countWords(): int
+    {
+        $preparedwords = $this->prepareWords();
+
         $matchcount = 0;
-        foreach ($sanitizedwords as $sentenc) {
+        foreach ($preparedwords as $sentenc) {
             if (!empty($this->firstVowelMatch($sentenc[0]))) {
                 $matchcount++;
             }

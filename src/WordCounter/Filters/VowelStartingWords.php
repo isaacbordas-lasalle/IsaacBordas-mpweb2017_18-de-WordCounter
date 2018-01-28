@@ -4,6 +4,7 @@ namespace WordCounter\Filters;
 
 use \WordCounter\WordCounter;
 use \WordCounter\WordExtractor;
+use \WordCounter\WordSanitize;
 
 class VowelStartingWords extends WordCounter implements FilterInterface
 {
@@ -15,17 +16,16 @@ class VowelStartingWords extends WordCounter implements FilterInterface
         $this->sentence = $sentence->getSentence();
     }
 
-    public function extractWordsFromSentence(): array
-    {
-        $splitedsentence = new WordExtractor\WordExtractor();
-        return $splitedsentence->extractWords($this->sentence);
-    }
-
     public function countWords(): int
     {
-        $splitedsentence = $this->extractWordsFromSentence();
+        $splitedsentence = new WordExtractor\WordExtractor();
+        $splitedwords = $splitedsentence->extractWords($this->sentence);
+
+        $sanitizewords = new WordSanitize\WordSanitize($splitedwords);
+        $sanitizedwords = $sanitizewords->sanitizeWords($splitedwords);
+
         $matchcount = 0;
-        foreach ($splitedsentence as $sentenc) {
+        foreach ($sanitizedwords as $sentenc) {
             if (!empty($this->firstVowelMatch($sentenc[0]))) {
                 $matchcount++;
             }

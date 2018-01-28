@@ -15,4 +15,8 @@ $simplecounter = new Filters\SimpleCounter(new \WordCounter\WordCounter($sentenc
 print 'Número total de palabras sin filtros: ' . $simplecounter->countWords() . '<br />';
 
 $vowelstartingcounter = new Filters\VowelStartingWords(new \WordCounter\WordCounter($sentence));
-print 'Número total de palabras que empiezan por vocal: ' . $vowelstartingcounter->countWords();
+print 'Número total de palabras que empiezan por vocal: ' . $vowelstartingcounter->countWords() . '<br />';
+
+$morewicharscounter = new Filters\MoreTwoCharsWords(new \WordCounter\WordCounter($sentence));
+print 'Número total de palabras que tienen más de dos caracteres: ' . $morewicharscounter->countWords() . '<br />';
+

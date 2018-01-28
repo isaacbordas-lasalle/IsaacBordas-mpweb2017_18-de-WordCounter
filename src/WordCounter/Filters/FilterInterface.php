@@ -5,8 +5,6 @@ namespace WordCounter\Filters;
 interface FilterInterface
 {
 
-    public function extractWordsFromSentence();
-
-    public function countWords();
+    public function countWords() : int;
 
 }

@@ -29,7 +29,7 @@ class SimpleCounter extends WordCounter implements FilterInterface
 
     }
 
-    public function countWords(): int
+    public function noFilter(): int
     {
         $preparedwords = $this->prepareWords();
 

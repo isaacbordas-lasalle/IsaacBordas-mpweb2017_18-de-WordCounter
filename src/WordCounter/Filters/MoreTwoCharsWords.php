@@ -29,25 +29,21 @@ class MoreTwoCharsWords extends WordCounter implements FilterInterface
 
     }
 
-    public function countWords(): int
+    public function moreThanTwoChars(): int
     {
 
         $preparedwords = $this->prepareWords();
 
         $matchcount = 0;
         foreach ($preparedwords as $sentenc) {
-            if (!empty($this->moreThanTwoChars($sentenc))) {
+            $wordlength = mb_strlen($sentenc);
+            $lengthcheck = ($wordlength > 2 ? true : false);
+
+            if (!empty($lengthcheck)) {
                 $matchcount++;
             }
         }
         return $matchcount;
-    }
-
-    private function moreThanTwoChars(string $word): bool
-    {
-        $wordlength = mb_strlen($word);
-        $lengthcheck = ($wordlength > 2 ? true : false);
-        return $lengthcheck;
     }
 
 }

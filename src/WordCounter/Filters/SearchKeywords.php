@@ -29,34 +29,20 @@ class SearchKeywords extends WordCounter implements FilterInterface
 
     }
 
-    public function countWords(): int
+    public function searchByKeyword(array $keywords): int
     {
-
         $preparedwords = $this->prepareWords();
-        $countbykeyword = $this->searchByKeyword($preparedwords);
 
-        return $countbykeyword;
-    }
+        $keywordscount = array_count_values($preparedwords);
 
-    private function searchByKeyword(array $words): int
-    {
-        $keywordscount = array_count_values($words);
         $counter = 0;
-        foreach ($keywordscount as $key => $value) {
-            if ($key == 'palabrejas') {
-                $counter = $counter + $value;
+        foreach ($keywords as $keyword) {
+            $upperword = ucfirst($keyword);
+            if (isset($keywordscount[$keyword])) {
+                $counter = $counter + $keywordscount[$keyword];
             }
-            if ($key == 'gañán') {
-                $counter = $counter + $value;
-            }
-            if ($key == 'hiper-arquitecto') {
-                $counter = $counter + $value;
-            }
-            if ($key == 'que' || $key == 'Que') {
-                $counter = $counter + $value;
-            }
-            if ($key == 'eh') {
-                $counter = $counter + $value;
+            if (isset($keywordscount[$upperword])) {
+                $counter = $counter + $keywordscount[$upperword];
             }
         }
 

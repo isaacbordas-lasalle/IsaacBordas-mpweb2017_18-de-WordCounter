@@ -29,22 +29,19 @@ class VowelStartingWords extends WordCounter implements FilterInterface
 
     }
 
-    public function countWords(): int
+    public function firstVowelMatch(): int
     {
         $preparedwords = $this->prepareWords();
 
+
         $matchcount = 0;
         foreach ($preparedwords as $sentenc) {
-            if (!empty($this->firstVowelMatch($sentenc[0]))) {
+            if (!empty(preg_match_all('#[AEIOUÁÉÍÓÚÀÈÌÒÙaeiouáéíóúàèìòù\s]+#i', $sentenc[0]))) {
                 $matchcount++;
             }
         }
         return $matchcount;
-    }
 
-    private function firstVowelMatch(string $firstchar): int
-    {
-        return preg_match_all('#[AEIOUÁÉÍÓÚÀÈÌÒÙaeiouáéíóúàèìòù\s]+#i', $firstchar);
     }
 
 }

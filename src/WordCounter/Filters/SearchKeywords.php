@@ -37,18 +37,18 @@ class SearchKeywords implements FilterInterface
 
         $keywordscount = array_count_values($preparedwords);
 
-        $matchfilter = [];
+        $matchfilterwords = [];
         foreach ($this->keywords as $keyword) {
             $upperword = ucfirst($keyword);
             if (isset($keywordscount[$keyword])) {
-                $matchfilter[] = $keywordscount[$keyword];
+                $matchfilterwords[] = $keyword;
             }
             if (isset($keywordscount[$upperword])) {
-                $matchfilter[] = $keywordscount[$upperword];
+                $matchfilterwords[] = $upperword;
             }
         }
 
-        return $matchfilter;
+        return $matchfilterwords;
     }
 
 }

@@ -31,15 +31,15 @@ class VowelStartingWords implements FilterInterface
 
     public function applyFilter(): array
     {
-        $matchfilter = [];
+        $matchfilterwords = [];
         $preparedwords = $this->prepareWords();
 
         foreach ($preparedwords as $sentenc) {
             if (!empty(preg_match_all('#[AEIOUÁÉÍÓÚÀÈÌÒÙaeiouáéíóúàèìòù\s]+#i', $sentenc[0]))) {
-                $matchfilter[] = $sentenc;
+                $matchfilterwords[] = $sentenc;
             }
         }
-        return $matchfilter;
+        return $matchfilterwords;
 
     }
 

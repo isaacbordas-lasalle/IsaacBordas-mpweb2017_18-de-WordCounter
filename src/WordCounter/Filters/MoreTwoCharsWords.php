@@ -31,7 +31,7 @@ class MoreTwoCharsWords implements FilterInterface
 
     public function applyFilter(): array
     {
-        $matchfilter = [];
+        $matchfilterwords = [];
         $preparedwords = $this->prepareWords();
 
         foreach ($preparedwords as $sentenc) {
@@ -39,10 +39,10 @@ class MoreTwoCharsWords implements FilterInterface
             $lengthcheck = ($wordlength > 2 ? true : false);
 
             if (!empty($lengthcheck)) {
-                $matchfilter[] = $sentenc;
+                $matchfilterwords[] = $sentenc;
             }
         }
-        return $matchfilter;
+        return $matchfilterwords;
     }
 
 }

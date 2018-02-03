@@ -6,7 +6,7 @@ use \WordCounter\WordCounter;
 use \WordCounter\WordExtractor;
 use \WordCounter\WordSanitize;
 
-class MoreTwoCharsWords extends WordCounter implements FilterInterface
+class MoreTwoCharsWords implements FilterInterface
 {
 
     private $sentence;
@@ -16,7 +16,7 @@ class MoreTwoCharsWords extends WordCounter implements FilterInterface
         $this->sentence = $sentence->getSentence();
     }
 
-    public function prepareWords(): array
+    private function prepareWords(): array
     {
 
         $splitedsentence = new WordExtractor\WordExtractor();
@@ -29,21 +29,20 @@ class MoreTwoCharsWords extends WordCounter implements FilterInterface
 
     }
 
-    public function moreThanTwoChars(): int
+    public function applyFilter(): array
     {
-
+        $matchfilter = [];
         $preparedwords = $this->prepareWords();
 
-        $matchcount = 0;
         foreach ($preparedwords as $sentenc) {
             $wordlength = mb_strlen($sentenc);
             $lengthcheck = ($wordlength > 2 ? true : false);
 
             if (!empty($lengthcheck)) {
-                $matchcount++;
+                $matchfilter[] = $sentenc;
             }
         }
-        return $matchcount;
+        return $matchfilter;
     }
 
 }

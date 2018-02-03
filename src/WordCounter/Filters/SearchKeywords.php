@@ -6,17 +6,19 @@ use \WordCounter\WordCounter;
 use \WordCounter\WordExtractor;
 use \WordCounter\WordSanitize;
 
-class SearchKeywords extends WordCounter implements FilterInterface
+class SearchKeywords implements FilterInterface
 {
 
     private $sentence;
+    private $keywords;
 
-    public function __construct(WordCounter $sentence)
+    public function __construct(WordCounter $sentence, array $keywords)
     {
+        $this->keywords = $keywords;
         $this->sentence = $sentence->getSentence();
     }
 
-    public function prepareWords(): array
+    private function prepareWords(): array
     {
 
         $splitedsentence = new WordExtractor\WordExtractor();
@@ -29,24 +31,24 @@ class SearchKeywords extends WordCounter implements FilterInterface
 
     }
 
-    public function searchByKeyword(array $keywords): int
+    public function applyFilter(): array
     {
         $preparedwords = $this->prepareWords();
 
         $keywordscount = array_count_values($preparedwords);
 
-        $counter = 0;
-        foreach ($keywords as $keyword) {
+        $matchfilter = [];
+        foreach ($this->keywords as $keyword) {
             $upperword = ucfirst($keyword);
             if (isset($keywordscount[$keyword])) {
-                $counter = $counter + $keywordscount[$keyword];
+                $matchfilter[] = $keywordscount[$keyword];
             }
             if (isset($keywordscount[$upperword])) {
-                $counter = $counter + $keywordscount[$upperword];
+                $matchfilter[] = $keywordscount[$upperword];
             }
         }
 
-        return $counter;
+        return $matchfilter;
     }
 
 }

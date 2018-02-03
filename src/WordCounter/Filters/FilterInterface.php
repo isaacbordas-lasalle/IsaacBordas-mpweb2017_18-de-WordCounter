@@ -5,6 +5,6 @@ namespace WordCounter\Filters;
 interface FilterInterface
 {
 
-    public function prepareWords(): array;
+    public function applyFilter(): array;
 
 }

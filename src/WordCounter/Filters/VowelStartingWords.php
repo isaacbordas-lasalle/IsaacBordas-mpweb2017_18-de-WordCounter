@@ -6,7 +6,7 @@ use \WordCounter\WordCounter;
 use \WordCounter\WordExtractor;
 use \WordCounter\WordSanitize;
 
-class VowelStartingWords extends WordCounter implements FilterInterface
+class VowelStartingWords implements FilterInterface
 {
 
     private $sentence;
@@ -16,7 +16,7 @@ class VowelStartingWords extends WordCounter implements FilterInterface
         $this->sentence = $sentence->getSentence();
     }
 
-    public function prepareWords(): array
+    private function prepareWords(): array
     {
 
         $splitedsentence = new WordExtractor\WordExtractor();
@@ -29,18 +29,17 @@ class VowelStartingWords extends WordCounter implements FilterInterface
 
     }
 
-    public function firstVowelMatch(): int
+    public function applyFilter(): array
     {
+        $matchfilter = [];
         $preparedwords = $this->prepareWords();
 
-
-        $matchcount = 0;
         foreach ($preparedwords as $sentenc) {
             if (!empty(preg_match_all('#[AEIOUÁÉÍÓÚÀÈÌÒÙaeiouáéíóúàèìòù\s]+#i', $sentenc[0]))) {
-                $matchcount++;
+                $matchfilter[] = $sentenc;
             }
         }
-        return $matchcount;
+        return $matchfilter;
 
     }
 

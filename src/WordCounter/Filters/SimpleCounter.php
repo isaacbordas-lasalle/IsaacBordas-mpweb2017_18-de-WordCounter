@@ -6,7 +6,7 @@ use \WordCounter\WordCounter;
 use \WordCounter\WordExtractor;
 use \WordCounter\WordSanitize;
 
-class SimpleCounter extends WordCounter implements FilterInterface
+class SimpleCounter implements FilterInterface
 {
 
     private $sentence;
@@ -16,7 +16,7 @@ class SimpleCounter extends WordCounter implements FilterInterface
         $this->sentence = $sentence->getSentence();
     }
 
-    public function prepareWords(): array
+    private function prepareWords(): array //clase abstractas template pattern
     {
 
         $splitedsentence = new WordExtractor\WordExtractor();
@@ -29,11 +29,11 @@ class SimpleCounter extends WordCounter implements FilterInterface
 
     }
 
-    public function noFilter(): int
+    public function applyFilter(): array
     {
         $preparedwords = $this->prepareWords();
 
-        return count($preparedwords);
+        return $preparedwords;
     }
 
 }

@@ -12,14 +12,14 @@ $sentence = 'Esto es un texto molón que sirve como juego de pruebas para la kat
 print 'Frase: ' . $sentence . '<br /><br />';
 
 $simplecounter = new Filters\SimpleCounter(new \WordCounter\WordCounter($sentence));
-print 'Número total de palabras sin filtros: ' . $simplecounter->noFilter() . '<br />';
+print 'Número total de palabras sin filtros: ' . count($simplecounter->applyFilter()) . '<br />';
 
 $vowelstartingcounter = new Filters\VowelStartingWords(new \WordCounter\WordCounter($sentence));
-print 'Número total de palabras que empiezan por vocal: ' . $vowelstartingcounter->firstVowelMatch() . '<br />';
+print 'Número total de palabras que empiezan por vocal: ' . count($vowelstartingcounter->applyFilter()) . '<br />';
 
-$morewicharscounter = new Filters\MoreTwoCharsWords(new \WordCounter\WordCounter($sentence));
-print 'Número total de palabras que tienen más de dos caracteres: ' . $morewicharscounter->moreThanTwoChars() . '<br />';
+$moretwocharscounter = new Filters\MoreTwoCharsWords(new \WordCounter\WordCounter($sentence));
+print 'Número total de palabras que tienen más de dos caracteres: ' . count($moretwocharscounter->applyFilter()) . '<br />';
 
 $keywords = ['palabrejas', 'gañán', 'hiper-arquitecto', 'que', 'eh'];
-$searchbykeywords = new Filters\SearchKeywords(new \WordCounter\WordCounter($sentence));
-print 'Número total de coincidencias con las keywords (palabrejas, gañán, hiper-arquitecto, que, eh): ' . $searchbykeywords->searchByKeyword($keywords) . '<br />';
+$searchbykeywords = new Filters\SearchKeywords(new \WordCounter\WordCounter($sentence), $keywords);
+print 'Número total de coincidencias con las keywords (palabrejas, gañán, hiper-arquitecto, que, eh): ' . count($searchbykeywords->applyFilter()) . '<br />';

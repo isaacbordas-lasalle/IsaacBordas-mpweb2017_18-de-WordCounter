@@ -3,8 +3,6 @@
 namespace WordCounter\Filters;
 
 use \WordCounter\WordCounter;
-use \WordCounter\WordExtractor;
-use \WordCounter\WordSanitize;
 
 class MoreTwoCharsWords implements FilterInterface
 {
@@ -16,25 +14,11 @@ class MoreTwoCharsWords implements FilterInterface
         $this->sentence = $sentence->getSentence();
     }
 
-    private function prepareWords(): array
-    {
-
-        $splitedsentence = new WordExtractor\WordExtractor();
-        $splitedwords = $splitedsentence->extractWords($this->sentence);
-
-        $sanitizewords = new WordSanitize\WordSanitize();
-        $sanitizedwords = $sanitizewords->sanitizeWords($splitedwords);
-
-        return $sanitizedwords;
-
-    }
-
     public function applyFilter(): array
     {
         $matchfilterwords = [];
-        $preparedwords = $this->prepareWords();
 
-        foreach ($preparedwords as $sentenc) {
+        foreach ($this->sentence as $sentenc) {
             $wordlength = mb_strlen($sentenc);
             $lengthcheck = ($wordlength > 2 ? true : false);
 

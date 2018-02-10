@@ -3,8 +3,6 @@
 namespace WordCounter\Filters;
 
 use \WordCounter\WordCounter;
-use \WordCounter\WordExtractor;
-use \WordCounter\WordSanitize;
 
 class SearchKeywords implements FilterInterface
 {
@@ -18,24 +16,10 @@ class SearchKeywords implements FilterInterface
         $this->sentence = $sentence->getSentence();
     }
 
-    private function prepareWords(): array
-    {
-
-        $splitedsentence = new WordExtractor\WordExtractor();
-        $splitedwords = $splitedsentence->extractWords($this->sentence);
-
-        $sanitizewords = new WordSanitize\WordSanitize();
-        $sanitizedwords = $sanitizewords->sanitizeWords($splitedwords);
-
-        return $sanitizedwords;
-
-    }
-
     public function applyFilter(): array
     {
-        $preparedwords = $this->prepareWords();
 
-        $keywordscount = array_count_values($preparedwords);
+        $keywordscount = array_count_values($this->sentence);
 
         $matchfilterwords = [];
         foreach ($this->keywords as $keyword) {
